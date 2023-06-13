@@ -8,15 +8,15 @@
 
 # Start the filters at sid 1200000
 # Example of filtering out *google.com from being in the dns log.
-#config dns any any -> any any (dns.query; content:"google.com"; config: logging disable, type tx, scope tx; sid:1200000;)
+#config dns any any <> any any (dns.query; content:"google.com"; config: logging disable, type tx, scope tx; sid:1200000;)
 # Example of filtering out  *google.com from being in the http log.
-#config http any any -> any any (http.host; content:"google.com"; config: logging disable, type tx, scope tx; sid:1200001;)
+#config http any any <> any any (http.host; content:"google.com"; config: logging disable, type tx, scope tx; sid:1200001;)
 # Example of filtering out  someuseragent from being in the http log.
-#config http any any -> any any (http.user_agent; content:"someuseragent"; config: logging disable, type tx, scope tx; sid:1200002;)
+#config http any any <> any any (http.user_agent; content:"someuseragent"; config: logging disable, type tx, scope tx; sid:1200002;)
 # Example of filtering out  Google's certificate from being in the ssl log.
-#config tls any any -> any any (tls.fingerprint; content:"4f:a4:5e:58:7e:d9:db:20:09:d7:b6:c7:ff:58:c4:7b:dc:3f:55:b4"; config: logging disable, type tx, scope tx; sid:1200003;)
+#config tls any any <> any any (tls.fingerprint; content:"4f:a4:5e:58:7e:d9:db:20:09:d7:b6:c7:ff:58:c4:7b:dc:3f:55:b4"; config: logging disable, type tx, scope tx; sid:1200003;)
 # Example of filtering out a md5 of a file from being in the files log.
-#config fileinfo any any -> any any (fileinfo.filemd5; content:"7a125dc69c82d5caf94d3913eecde4b5"; config: logging disable, type tx, scope tx; sid:1200004;)
+#config fileinfo any any <> any any (fileinfo.filemd5; content:"7a125dc69c82d5caf94d3913eecde4b5"; config: logging disable, type tx, scope tx; sid:1200004;)
 
 #########################
 #                       #
@@ -38,11 +38,14 @@
 #    ESET_THLAB_SRVS: '[91.228.166.11, 91.228.166.148, 91.228.166.149, 91.228.167.144, 91.228.167.145, 91.228.167.146, 91.228.166.150, 91.228.167.151, 91.228.166.152, 91.228.167.155, 91.228.166.74, 91.228.167.83]'
 #    ESET_WC_PC_MOD_SRVS: '[91.228.166.42, 91.228.166.43, 91.228.167.141, 91.228.167.142, 38.90.226.14, 38.90.226.15]'
 #    ESET_PWM_SVRS: '[52.209.182.22, 52.48.20.160, 52.50.84.107, 52.209.182.22, 52.48.20.160, 52.50.84.107, 52.218.64.33, 52.218.64.33]'
-#    ESET_ASPAM_SRVS: '[91.228.166.61, 91.228.166.62, 91.228.166.63, 91.228.166.64, 91.228.166.65, 91.228.166.119, 91.228.166.120, 91.228.167.36, 91.228.167.67, 91.228.167.68, 91.228.167.74, 91.228.167.116, 91.228.167.136, 91.228.167.138, 38.90.226.21, 38.90.226.22, 38.90.226.23, 38.90.226.24, 38.90.226.25, 38.90.226.19, 38.90.226.27, 82.165.143.243, 87.106.222.139, 87.106.240.241, 82.165.143.242, 87.106.131.195, 91.228.167.63]'
-#    ESET_ASPAM_UPDT_SRVS: '[, 23.239.13.41, 23.239.15.84, 23.92.19.91, 23.92.26.7, 23.92.27.240, 50.116.11.250, 50.116.14.27, 50.116.19.218, 50.116.2.121, 50.116.3.153, 50.116.3.42, 50.116.4.68, 50.116.50.102, 50.116.50.105, 50.116.50.109, 50.116.50.197, 50.116.50.202, 50.116.54.198, 50.116.61.111, 50.116.61.155, 50.116.62.242, 50.116.63.215, 50.116.63.216, 66.175.214.89, 66.175.223.13, 66.228.48.183, 74.207.240.108, 74.207.252.229, 74.208.106.28, 74.208.78.224, 74.208.79.219, 74.208.79.224, 74.208.99.25, 77.68.39.21, 77.68.39.31, 80.85.85.133, 80.85.85.200, 80.85.85.58, 85.159.211.160, 87.106.104.112, 87.106.11.214, 87.106.11.38, 87.106.12.77, 87.106.128.170, 87.106.13.61, 87.106.141.10, 87.106.183.224, 87.106.209.135, 87.106.209.149, 87.106.210.57, 87.106.214.177, 87.106.240.160, 88.208.202.90, 88.208.202.91, 88.208.248.146, 88.208.248.164, 88.208.248.199, 88.208.248.200, 88.80.184.106, 88.80.185.201, 88.80.190.155, 96.126.106.194, 96.126.98.211, 97.107.134.71, 104.131.131.132, 104.200.24.34, 109.123.106.250, 109.74.197.59, 151.236.219.57, 162.216.16.201, 162.216.18.163, 173.230.146.110, 173.230.152.57, 173.255.209.236, 173.255.213.36, 173.255.214.49, 173.255.214.53, 173.255.218.51, 173.255.226.186, 173.255.232.151, 173.255.234.245, 173.255.234.85, 173.255.243.160, 173.255.245.232, 173.255.253.150, 173.255.254.232, 176.58.100.154, 176.58.101.140, 176.58.104.101, 176.58.110.248, 176.58.111.122, 176.58.111.124, 176.58.111.163, 176.58.112.126, 176.58.112.160, 176.58.115.138, 176.58.115.39, 176.58.117.5, 176.58.117.75, 176.58.119.151, 176.58.124.244, 176.58.97.188, 176.58.98.13, 176.58.98.155, 176.58.99.196, 176.58.99.197, 178.79.128.94, 178.79.138.31, 178.79.140.188, 178.79.143.222, 178.79.150.32, 178.79.152.167, 178.79.153.233, 178.79.157.41, 178.79.159.237, 178.79.163.250, 178.79.164.196, 178.79.181.233, 178.79.182.43, 178.79.183.81, 178.79.186.194, 178.79.188.10, 178.79.190.135, 178.79.190.174, 192.155.84.126, 192.155.86.247, 192.155.87.170, 192.81.129.218, 192.81.134.251, 198.58.97.43, 198.74.49.240, 198.74.57.188, 198.74.58.243, 209.157.64.162, 209.157.64.163, 209.157.64.164, 209.157.64.165, 209.157.64.166, 209.157.64.167, 209.157.64.168, 209.157.64.169, 209.157.64.170, 209.157.64.171, 209.157.64.172, 209.157.64.173, 209.157.64.174, 209.157.64.175, 209.157.64.176, 209.157.64.177, 209.157.66.226, 209.157.66.227, 209.157.66.229, 209.157.66.230, 209.157.66.232, 209.157.66.234, 209.157.66.235, 209.157.66.236, 209.157.66.237, 209.157.66.238, 209.157.66.239, 209.157.66.240, 209.157.66.241, 209.157.66.242, 209.157.66.243, 209.157.66.244, 209.157.66.245, 209.157.66.246, 209.157.66.247, 209.157.66.248, 209.157.66.249, 209.157.66.253, 212.227.96.110, 212.71.233.60, 212.71.251.168, 212.71.251.182, 212.71.252.146, 213.171.205.141, 213.171.205.238, 213.171.205.77, 213.171.205.78, 213.171.206.148, 213.171.207.47, 213.171.207.48, 213.171.207.62, 213.171.207.71, 213.171.207.72, 217.174.248.233, 217.174.249.167, 217.174.249.223, 217.174.249.232]'
+#    ESET_ASPAM_V45_SRVS: '[91.228.166.61, 91.228.166.62, 91.228.166.63, 91.228.166.64, 91.228.166.65, 91.228.166.119, 91.228.166.120, 91.228.167.36, 91.228.167.67, 91.228.167.68, 91.228.167.74, 91.228.167.116, 91.228.167.136, 91.228.167.138, 38.90.226.21, 38.90.226.22, 38.90.226.23, 38.90.226.24, 38.90.226.25, 38.90.226.19, 38.90.226.27]'
+#    ESET_ASPAM_V3_SRVS: '[82.165.143.243, 87.106.222.139, 87.106.240.241, 82.165.143.242, 87.106.131.195]'
+#    ESET_ASPAM_MAIL_UPDT_SRVS: '[, 23.239.13.41, 23.239.15.84, 23.92.19.91, 23.92.26.7, 23.92.27.240, 50.116.11.250, 50.116.14.27, 50.116.19.218, 50.116.2.121, 50.116.3.153, 50.116.3.42, 50.116.4.68, 50.116.50.102, 50.116.50.105, 50.116.50.109, 50.116.50.197, 50.116.50.202, 50.116.54.198, 50.116.61.111, 50.116.61.155, 50.116.62.242, 50.116.63.215, 50.116.63.216, 66.175.214.89, 66.175.223.13, 66.228.48.183, 74.207.240.108, 74.207.252.229, 74.208.106.28, 74.208.78.224, 74.208.79.219, 74.208.79.224, 74.208.99.25, 77.68.39.21, 77.68.39.31, 80.85.85.133, 80.85.85.200, 80.85.85.58, 85.159.211.160, 87.106.104.112, 87.106.11.214, 87.106.11.38, 87.106.12.77, 87.106.128.170, 87.106.13.61, 87.106.141.10, 87.106.183.224, 87.106.209.135, 87.106.209.149, 87.106.210.57, 87.106.214.177, 87.106.240.160, 88.208.202.90, 88.208.202.91, 88.208.248.146, 88.208.248.164, 88.208.248.199, 88.208.248.200, 88.80.184.106, 88.80.185.201, 88.80.190.155, 96.126.106.194, 96.126.98.211, 97.107.134.71, 104.131.131.132, 104.200.24.34, 109.123.106.250, 109.74.197.59, 151.236.219.57, 162.216.16.201, 162.216.18.163, 173.230.146.110, 173.230.152.57, 173.255.209.236, 173.255.213.36, 173.255.214.49, 173.255.214.53, 173.255.218.51, 173.255.226.186, 173.255.232.151, 173.255.234.245, 173.255.234.85, 173.255.243.160, 173.255.245.232, 173.255.253.150, 173.255.254.232, 176.58.100.154, 176.58.101.140, 176.58.104.101, 176.58.110.248, 176.58.111.122, 176.58.111.124, 176.58.111.163, 176.58.112.126, 176.58.112.160, 176.58.115.138, 176.58.115.39, 176.58.117.5, 176.58.117.75, 176.58.119.151, 176.58.124.244, 176.58.97.188, 176.58.98.13, 176.58.98.155, 176.58.99.196, 176.58.99.197, 178.79.128.94, 178.79.138.31, 178.79.140.188, 178.79.143.222, 178.79.150.32, 178.79.152.167, 178.79.153.233, 178.79.157.41, 178.79.159.237, 178.79.163.250, 178.79.164.196, 178.79.181.233, 178.79.182.43, 178.79.183.81, 178.79.186.194, 178.79.188.10, 178.79.190.135, 178.79.190.174, 192.155.84.126, 192.155.86.247, 192.155.87.170, 192.81.129.218, 192.81.134.251, 198.58.97.43, 198.74.49.240, 198.74.57.188, 198.74.58.243, 209.157.64.162, 209.157.64.163, 209.157.64.164, 209.157.64.165, 209.157.64.166, 209.157.64.167, 209.157.64.168, 209.157.64.169, 209.157.64.170, 209.157.64.171, 209.157.64.172, 209.157.64.173, 209.157.64.174, 209.157.64.175, 209.157.64.176, 209.157.64.177, 209.157.66.226, 209.157.66.227, 209.157.66.229, 209.157.66.230, 209.157.66.232, 209.157.66.234, 209.157.66.235, 209.157.66.236, 209.157.66.237, 209.157.66.238, 209.157.66.239, 209.157.66.240, 209.157.66.241, 209.157.66.242, 209.157.66.243, 209.157.66.244, 209.157.66.245, 209.157.66.246, 209.157.66.247, 209.157.66.248, 209.157.66.249, 209.157.66.253, 212.227.96.110, 212.71.233.60, 212.71.251.168, 212.71.251.182, 212.71.252.146, 213.171.205.141, 213.171.205.238, 213.171.205.77, 213.171.205.78, 213.171.206.148, 213.171.207.47, 213.171.207.48, 213.171.207.62, 213.171.207.71, 213.171.207.72, 217.174.248.233, 217.174.249.167, 217.174.249.223, 217.174.249.232]'
 #    ESET_MAIN_WINDOW_SVRS: '[52.166.8.11, 91.228.166.47, 91.228.167.128, 91.228.166.78, 91.228.167.98]'
-#    ESET_DATA_FMWK_SVRS: '[13.64.23.53, 13.91.140.245, 91.228.165.74, 91.228.167.40, 91.228.166.104, 91.228.166.71, 91.228.167.64, 91.228.167.81, 38.90.226.16, 38.90.226.17, 38.90.226.42, 38.90.226.34, 13.91.140.245, 13.64.23.53]'
-#    ESET_REPO_SVRS: '[38.90.226.20, 38.90.226.20, 38.90.226.20, 38.90.226.20, 38.90.226.20, 38.90.226.20, 91.228.166.19, 91.228.166.23, 91.228.166.23, 91.228.166.23, 91.228.167.25, 91.228.167.25, 91.228.167.25, 91.228.167.25, 161.189.152.208]'
+#    ESET_DATA_FMWK_SVRS: '[13.64.23.53, 13.91.140.245, 91.228.166.104, 91.228.166.71, 91.228.167.64, 91.228.167.81, 38.90.226.16, 38.90.226.17, 38.90.226.42, 38.90.226.34, 13.91.140.245, 13.64.23.53]'
+#    ESET_DATA_FMWK_SVRS_OLD: '[91.228.165.74, 91.228.167.40]'
+#    ESET_REPO_SVRS: '[38.90.226.20, 38.90.226.20, 38.90.226.20, 38.90.226.20, 38.90.226.20, 38.90.226.20, 91.228.166.19, 91.228.166.23, 91.228.166.23, 91.228.166.23, 91.228.167.25, 91.228.167.25, 91.228.167.25, 91.228.167.25]'
+#    ESET_REPO_CHI_SVR: '[161.189.152.208]'
 #    ESET_MGMT_AGNT_2CLD_SRVS: '[20.82.100.209, 20.245.38.118, 20.194.197.189]'
 #    ESET_CLD_WEB_CNSL_SRVS: '[13.69.61.76, 23.99.91.144, 23.99.91.144]'
 #    ESET_NSPCT_CLD_SVRS: '[52.166.186.239, 40.83.252.19, 20.188.24.252]'
@@ -56,185 +59,224 @@
 #    ESET_INCMG_SYSLG_SRVS: '[51.136.106.164/30, 40.81.8.148/30, 20.78.10.184/30]'
 
 # No DNS logs for ESET Detection Engine Update servers
-#config dns any any -> any any (msg:"No DNS logs for ESET Detection Engine Update servers"; dns.query; pcre:"/^um(0[1-9]|1[0-6]|2[1,3]|01\.cn)\.eset\.com$/gmi"; config:logging disable, type tx, scope tx; reference:url, https://support.eset.com/en/kb332-ports-and-addresses-required-to-use-your-eset-product-with-a-third-party-firewall; sid:1200001; rev:1;)
-
+# https://regex101.com/library/lN2HIh
+#config dns any any <> any any (msg:"No DNS logs for ESET Detection Engine Update servers"; dns.query; pcre:"/^(?:um01\.cn|um0[1-9]|um1[0-6]|um2[1,3]|(eu\-|us\-)?update)\.eset\.com$/gmi"; config:logging disable, type tx, scope tx; reference:url, https://support.eset.com/en/kb332-ports-and-addresses-required-to-use-your-eset-product-with-a-third-party-firewall; sid:1200001; rev:1;)
+#
 # No traffic logs for ESET Detection Engine Update servers
 #config tcp any any <> $ESET_DET_ENG_SRVS any (msg:"No traffic logs for ESET Detection Engine Update servers"; config:logging disable, type tx, scope tx; reference:url, https://support.eset.com/en/kb332-ports-and-addresses-required-to-use-your-eset-product-with-a-third-party-firewall; sid:1200002; rev:1;)
 
-# No DNS logs for ESET Pico Update servers
-#config dns any any -> any any (msg: "No DNS logs for ESET Pico Update servers"; dns.query; content:"pico.eset.com"; nocase; config:logging disable, type tx, scope tx; reference:url, https://support.eset.com/en/kb332-ports-and-addresses-required-to-use-your-eset-product-with-a-third-party-firewall; sid:1200003; rev:1;)
 
+# No DNS logs for ESET Pico Update servers
+#config dns any any <> any any (msg: "No DNS logs for ESET Pico Update servers"; dns.query; content:"pico.eset.com"; nocase; config:logging disable, type tx, scope tx; reference:url, https://support.eset.com/en/kb332-ports-and-addresses-required-to-use-your-eset-product-with-a-third-party-firewall; sid:1200003; rev:1;)
+#
 # No traffic logs for ESET Pico Update servers
 #config tcp any any <> $ESET_PICO_SRVS any (msg:"No traffic logs for ESET Pico Update servers"; config:logging disable, type tx, scope tx; reference:url, https://support.eset.com/en/kb332-ports-and-addresses-required-to-use-your-eset-product-with-a-third-party-firewall; sid:1200004; rev:1;)
 
-# No DNS logs for ESET Product Installer/Update servers
-#config dns any any -> any any (msg:"No DNS logs for ESET Product Installer/Update servers"; dns.query; content:"download.eset.com"; nocase; config:logging disable, type tx, scope tx; reference:url, https://support.eset.com/en/kb332-ports-and-addresses-required-to-use-your-eset-product-with-a-third-party-firewall; sid:1200005; rev:1;)
 
+# No DNS logs for ESET Product Installer/Update servers
+#config dns any any <> any any (msg:"No DNS logs for ESET Product Installer/Update servers"; dns.query; content:"download.eset.com"; nocase; config:logging disable, type tx, scope tx; reference:url, https://support.eset.com/en/kb332-ports-and-addresses-required-to-use-your-eset-product-with-a-third-party-firewall; sid:1200005; rev:1;)
+#
 # No traffic logs for ESET Product Installer/Update servers
 #config tcp any any <> $ESET_UPDATE_SRVS any (msg:"No traffic logs for ESET Product Installer/Update servers"; config:logging disable, type tx, scope tx; reference:url, https://support.eset.com/en/kb332-ports-and-addresses-required-to-use-your-eset-product-with-a-third-party-firewall; sid:1200006; rev:1;)
 
-# No DNS logs for ESET Expiration Servers
-#config dns any any -> any any (msg: "No DNS logs for ESET Expiration servers"; dns.query; pcre:"/(expire|edf)\.eset\.com/gmi"; config:logging disable, type tx, scope tx; reference:url, https://support.eset.com/en/kb332-ports-and-addresses-required-to-use-your-eset-product-with-a-third-party-firewall; sid:1200007; rev:1;)
 
+# No DNS logs for ESET Expiration Servers
+#config dns any any <> any any (msg: "No DNS logs for ESET Expiration servers"; dns.query; pcre:"/(expire|edf)\.eset\.com/gmi"; config:logging disable, type tx, scope tx; reference:url, https://support.eset.com/en/kb332-ports-and-addresses-required-to-use-your-eset-product-with-a-third-party-firewall; sid:1200007; rev:1;)
+#
 # No traffic logs for ESET Expiration Servers
 #config tcp any any <> $ESET_EXPR_SRVS any (msg:"No traffic logs for ESET Expiration servers"; config:logging disable, type tx, scope tx; reference:url, https://support.eset.com/en/kb332-ports-and-addresses-required-to-use-your-eset-product-with-a-third-party-firewall; sid:1200008; rev:1;)
 
-# No DNS logs for ESET Support Request Servers
-#config dns any any -> any any (msg:"No DNS logs for ESET Product Installer/Update servers"; dns.query; content:"suppreq.eset.eu"; nocase; config:logging disable, type tx, scope tx; reference:url, https://support.eset.com/en/kb332-ports-and-addresses-required-to-use-your-eset-product-with-a-third-party-firewall; sid:1200009; rev:1;)
 
+# No DNS logs for ESET Support Request Servers
+#config dns any any <> any any (msg:"No DNS logs for ESET Product Installer/Update servers"; dns.query; content:"suppreq.eset.eu"; nocase; config:logging disable, type tx, scope tx; reference:url, https://support.eset.com/en/kb332-ports-and-addresses-required-to-use-your-eset-product-with-a-third-party-firewall; sid:1200009; rev:1;)
+#
 # No traffic logs for ESET Support Request Servers
 #config tcp any any <> $ESET_SUPRT_SRVS any (msg:"No traffic logs for ESET Support Request servers"; config:logging disable, type tx, scope tx; reference:url, https://support.eset.com/en/kb332-ports-and-addresses-required-to-use-your-eset-product-with-a-third-party-firewall; sid:1200010; rev:1;)
 
+
 # No DNS logs for ESET Secure Authentication Provisioning Server (ESAP)
-#config dns any any -> any any (msg:"No DNS logs for ESAP servers"; dns.query; pcre:"/^(ecp|esa|m.esa)\.eset\.(com|systems)$/gmi"; config:logging disable, type tx, scope tx; reference:url, https://support.eset.com/en/kb332-ports-and-addresses-required-to-use-your-eset-product-with-a-third-party-firewall; sid:1200011; rev:1;)
-
+# https://regex101.com/library/S0UcT0
+#config dns any any <> any any (msg:"No DNS logs for ESAP servers"; dns.query; pcre:"/^(?:ecp\.eset\.systems|(?:(?:m\.)?esa|h1\-esa0[1-4]|h3\-esa2\-0[1-4]\-v)\.eset\.com)$/gm"; config:logging disable, type tx, scope tx; reference:url, https://support.eset.com/en/kb332-ports-and-addresses-required-to-use-your-eset-product-with-a-third-party-firewall; sid:1200011; rev:1;)
+#
 # No TLS logs for ESET Secure Authentication Provisioning Server (ESAP)
-#config tls any any <> any any (msg:"No TLS logs for ESAP servers"; tls.sni; pcre:"/^(ecp|esa|m.esa|h[1,3]-esa(2)?(-)?0[1-4](-v)?)\.eset\.(com|systems)$/gmi"; config:logging disable, type tx, scope tx; reference:url, https://learn.microsoft.com/en-us/windows-server/administration/windows-server-update-services/deploy/2-configure-wsus; sid:1200012; rev:1;)
-
+# https://regex101.com/library/qN8Px2
+#config tls any any <> any any (msg:"No TLS logs for ESAP servers"; tls.sni; pcre:"/^(?:ecp\.eset\.systems|(?:m\.)?esa\.eset\.com)$/gmi"; config:logging disable, type tx, scope tx; reference:url, https://support.eset.com/en/kb332-ports-and-addresses-required-to-use-your-eset-product-with-a-third-party-firewall; sid:1200012; rev:1;)
+#
 # No traffic logs for ESET Secure Authentication Provisioning Server (ESAP)
 #config tcp any any <> $ESET_SUPRT_SRVS 443 (msg:"No traffic logs for ESAP servers"; config:logging disable, type tx, scope tx; reference:url, https://support.eset.com/en/kb332-ports-and-addresses-required-to-use-your-eset-product-with-a-third-party-firewall; sid:1200013; rev:1;)
 
-# No DNS logs for ESET LiveGrid reputation database
-#config dns any any -> any any (msg:"No DNS logs for ESET LiveGrid reputation database"; dns.query; pcre:"/^((h[1,3,5]\-c0[1-7]|(a|i[1,3,4,5])?\.?c|u)\.eset\.com|(avcloud|dnsj)\.e5\.sk)$/gmi"; config:logging disable, type tx, scope tx; reference:url, https://support.eset.com/en/kb332-ports-and-addresses-required-to-use-your-eset-product-with-a-third-party-firewall; sid:1200014; rev:1;)
 
+# No DNS logs for ESET LiveGrid reputation database
+# https://regex101.com/library/O0Km6a
+#config dns any any <> any any (msg:"No DNS logs for ESET LiveGrid reputation database"; dns.query; pcre:"/^(?:u|(?:a\.|i[1,3-5]\.)?c|h1\-c0[1-7]|h3\-c0[1-4]|h5\-c0[1-5])\.eset\.com|(?:avcloud|dnsj)\.e5\.sk$/gmi"; config:logging disable, type tx, scope tx; reference:url, https://support.eset.com/en/kb332-ports-and-addresses-required-to-use-your-eset-product-with-a-third-party-firewall; sid:1200014; rev:1;)
+#
 # No HTTP logs for ESET LiveGrid reputation database
 #config http any any <> $ESET_LVGRD_SRVS 80 (msg:"No HTTP logs for ESET LiveGrid reputation database"; config:logging disable, type tx, scope tx; sid:1200015; rev:1;)
-
+#
 # No traffic logs for ESET LiveGrid reputation database
 #config tcp any any <> $ESET_LVGRD_SRVS 80 (msg:"No traffic logs for ESET LiveGrid reputation database"; config:logging disable, type tx, scope tx; reference:url, https://support.eset.com/en/kb332-ports-and-addresses-required-to-use-your-eset-product-with-a-third-party-firewall; sid:1200016; rev:1;)
 
-# No DNS logs for ESET Advanced Machine Learning servers
-#config dns any any -> any any (msg:"No DNS logs for ESET Advanced Machine Learning servers"; dns.query; pcre:"/^(h[1,3,5]\-aidc01|augur\.scanners)\.eset\.(com|systems)$/gmi"; config:logging disable, type tx, scope tx; reference:url, https://support.eset.com/en/kb332-ports-and-addresses-required-to-use-your-eset-product-with-a-third-party-firewall; sid:1200017; rev:1;)
 
+# No DNS logs for ESET Advanced Machine Learning servers
+# https://regex101.com/library/hHKmNX
+#config dns any any <> any any (msg:"No DNS logs for ESET Advanced Machine Learning servers"; dns.query; pcre:"/^augur\.scanners\.eset\.systems|h[1,3,5]\-aidc01\.eset\.com$/gmi"; config:logging disable, type tx, scope tx; reference:url, https://support.eset.com/en/kb332-ports-and-addresses-required-to-use-your-eset-product-with-a-third-party-firewall; sid:1200017; rev:1;)
+#
 # No traffic logs for ESET Advanced Machine Learning servers
 #config tcp any any <> $ESET_ADVML_SRVS any (msg:"No traffic logs for ESET Advanced Machine Learning servers"; config:logging disable, type tx, scope tx; reference:url, https://support.eset.com/en/kb332-ports-and-addresses-required-to-use-your-eset-product-with-a-third-party-firewall; sid:1200018; rev:1;)
 
-# No DNS logs for ESET Threat Lab files/stats submission
-#config dns any any -> any any (msg:"No DNS logs for ESET Threat Lab files/stats submission"; dns.query; pcre:"/^(edtd\-)?(ts(m(09|1[0-9]|20))?)\.eset\.com$/gmi"; config:logging disable, type tx, scope tx; reference:url, https://support.eset.com/en/kb332-ports-and-addresses-required-to-use-your-eset-product-with-a-third-party-firewall; sid:1200019; rev:1;)
 
+# No DNS logs for ESET Threat Lab files/stats submission
+# https://regex101.com/library/W45WRF
+#config dns any any <> any any (msg:"No DNS logs for ESET Threat Lab files/stats submission"; dns.query; pcre:"/^(?:ts(?:m(?:09|1[0-9]|20))?|edtd\-ts)\.eset\.com$/gmi"; config:logging disable, type tx, scope tx; reference:url, https://support.eset.com/en/kb332-ports-and-addresses-required-to-use-your-eset-product-with-a-third-party-firewall; sid:1200019; rev:1;)
+#
 # No traffic logs for ESET Threat Lab files/stats submission
 #config tcp any any <> $ESET_ADVML_SRVS any (msg:"No traffic logs for ESET Threat Lab files/stats submission"; config:logging disable, type tx, scope tx; reference:url, https://support.eset.com/en/kb332-ports-and-addresses-required-to-use-your-eset-product-with-a-third-party-firewall; sid:1200020; rev:1;)
 
-# No DNS logs for Web/Parental Control module server
-#config dns any any -> any any (msg:"No DNS logs for Web/Parental Control module"; dns.query; pcre:"/^h[1,3,5]\-arsp0[1,2]\-v\.eset\.com/gmi"; config:logging disable, type tx, scope tx; reference:url, https://support.eset.com/en/kb332-ports-and-addresses-required-to-use-your-eset-product-with-a-third-party-firewall; sid:1200021; rev:1;)
 
+# No DNS logs for Web/Parental Control module server
+# https://regex101.com/library/BjWi29
+#config dns any any <> any any (msg:"No DNS logs for Web/Parental Control module"; dns.query; pcre:"/^h[1,3,5]\-arsp0[1,2]\-v\.eset\.com$/gmi"; config:logging disable, type tx, scope tx; reference:url, https://support.eset.com/en/kb332-ports-and-addresses-required-to-use-your-eset-product-with-a-third-party-firewall; sid:1200021; rev:1;)
+#
 # No traffic logs for Web/Parental Control module server
 #config udp any any <> $ESET_WC_PC_MOD_SRVS 53535 (msg:"No traffic logs for Web/Parental Control module"; config:logging disable, type tx, scope tx; reference:url, https://support.eset.com/en/kb332-ports-and-addresses-required-to-use-your-eset-product-with-a-third-party-firewall; sid:1200022; rev:1;)
 
-# No DNS logs for ESET Password Manager servers
-#config dns any any -> any any (msg:"No DNS logs for ESET Password Manager servers"; dns.query; pcre:"/(ext\-pwm|s3\-3\-w|eset\-870273198|esetpwmdata\-1)\.?(eu\-west\-1\.elb|s3)?\.(eset|amazonaws)\.com$/gmi"; config:logging disable, type tx, scope tx; reference:url, https://support.eset.com/en/kb332-ports-and-addresses-required-to-use-your-eset-product-with-a-third-party-firewall; sid:1200023; rev:1;)
 
+# No DNS logs for ESET Password Manager servers
+# https://regex101.com/library/Zmd0HR
+#config dns any any <> any any (msg:"No DNS logs for ESET Password Manager servers"; dns.query; pcre:"/^(?:s3\-3\-w|esetpwmdata\-1\.s3|eset\-870273198\.eu\-west\-1\.elb)\.amazonaws\.com|ext\-pwm\.eset\.com$/gmi"; config:logging disable, type tx, scope tx; reference:url, https://support.eset.com/en/kb332-ports-and-addresses-required-to-use-your-eset-product-with-a-third-party-firewall; sid:1200023; rev:1;)
+#
 # No traffic logs for ESET Password Manager servers
 #config tcp any any <> $ESET_PWM_SVRS any (msg:"No traffic logs for ESET Password Manager servers"; config:logging disable, type tx, scope tx; reference:url, https://support.eset.com/en/kb332-ports-and-addresses-required-to-use-your-eset-product-with-a-third-party-firewall; sid:1200024; rev:1;)
 
-# No DNS logs for ESET Antispam module servers
-#config dns any any -> any any (msg:"No DNS logs for ESET Antispam module servers"; dns.query; pcre:"/(h[1,3,5]\-ars0[1-7](\-v)?\.eset\.com|(dns|salt|rsys|arb|asplog|mri|ipt|sample|stat|setting|gid)\.e5\.sk)/gmi"; config:logging disable, type tx, scope tx; reference:url, https://support.eset.com/en/kb332-ports-and-addresses-required-to-use-your-eset-product-with-a-third-party-firewall; sid:1200025; rev:1;)
 
-# No traffic logs for ESET Mail Security Antispam module servers
-#config tcp any any <> $ESET_ASPAM_SRVS 53535 (msg:"No traffic logs for Web/Parental Control module"; config:logging disable, type tx, scope tx; reference:url, https://support.eset.com/en/kb332-ports-and-addresses-required-to-use-your-eset-product-with-a-third-party-firewall; sid:1200026; rev:1;)
-#config udp any any <> $ESET_ASPAM_SRVS 53535 (msg:"No traffic logs for Web/Parental Control module"; config:logging disable, type tx, scope tx; reference:url, https://support.eset.com/en/kb332-ports-and-addresses-required-to-use-your-eset-product-with-a-third-party-firewall; sid:1200027; rev:1;)
+# No DNS logs for ESET Antispam module servers
+# https://regex101.com/library/FrghTK (v3)
+#config dns any any <> any any (msg:"No DNS logs for ESET Antispam module v3 servers"; dns.query; pcre:"/^(?:dns|salt|rsys|arb|asplog|mri|ipt|sample|stat|setting|gid)\.e5\.sk$/gmi"; config:logging disable, type tx, scope tx; reference:url, https://support.eset.com/en/kb332-ports-and-addresses-required-to-use-your-eset-product-with-a-third-party-firewall; sid:1200025; rev:1;)
+# https://regex101.com/library/eyrmmS (v4/5)
+# config dns any any <> any any (msg:"No DNS logs for ESET Antispam module v4/5 servers"; dns.query; pcre:"/^h[1,3,5]\-ars0(?:[1-5]\-v|[6,7])\.eset\.com$/gmi"; config:logging disable, type tx, scope tx; reference:url, https://support.eset.com/en/kb332-ports-and-addresses-required-to-use-your-eset-product-with-a-third-party-firewall; sid:1200025; rev:1;)
+# No traffic logs for ESET Antispam Module servers
+#config tcp any any <> $ESET_ASPAM_V3_SRVS 53535 (msg:"No traffic logs for ESET Antispam module v3 servers"; config:logging disable, type tx, scope tx; reference:url, https://support.eset.com/en/kb332-ports-and-addresses-required-to-use-your-eset-product-with-a-third-party-firewall; sid:1200026; rev:1;)
+#config udp any any <> $ESET_ASPAM_V3_SRVS 53535 (msg:"No traffic logs for ESET Antispam module v3 servers"; config:logging disable, type tx, scope tx; reference:url, https://support.eset.com/en/kb332-ports-and-addresses-required-to-use-your-eset-product-with-a-third-party-firewall; sid:1200027; rev:1;)
+#config tcp any any <> $ESET_ASPAM_V45_SRVS 53535 (msg:"No traffic logs for ESET Antispam module v4/5 servers"; config:logging disable, type tx, scope tx; reference:url, https://support.eset.com/en/kb332-ports-and-addresses-required-to-use-your-eset-product-with-a-third-party-firewall; sid:1200026; rev:1;)
+#config udp any any <> $ESET_ASPAM_V45_SRVS 53535 (msg:"No traffic logs for ESET Antispam module v4/5 servers"; config:logging disable, type tx, scope tx; reference:url, https://support.eset.com/en/kb332-ports-and-addresses-required-to-use-your-eset-product-with-a-third-party-firewall; sid:1200027; rev:1;)
+
 
 # No DNS logs for ESET Mail Security Antispam module update servers
-#config dns any any -> any any (msg:"No DNS logs for ESET Mail Security Antispam module update servers"; dns.query; pcre:"/(ds1\-uk\-rules\-[1-3]|fh\-uk11)\.mailshell\.net/gmi"; config:logging disable, type tx, scope tx; reference:url, https://support.eset.com/en/kb332-ports-and-addresses-required-to-use-your-eset-product-with-a-third-party-firewall; sid:1200028; rev:1;)
-
+# https://regex101.com/library/YQwDMp
+#config dns any any <> any any (msg:"No DNS logs for ESET Mail Security Antispam module update servers"; dns.query; pcre:"/^(?:ds1\-uk\-rules\-[1-3]|fh\-uk11)\.mailshell\.net$/gmi"; config:logging disable, type tx, scope tx; reference:url, https://support.eset.com/en/kb332-ports-and-addresses-required-to-use-your-eset-product-with-a-third-party-firewall; sid:1200028; rev:1;)
+#
 # No HTTP logs for ESET Mail Security Antispam module update servers
-#config http any any -> $ESET_ASPAM_UPDT_SRVS 80 (msg:"No HTTP logs for ESET Mail Security Antispam module update servers"; config:logging disable, type tx, scope tx; reference:url, https://support.eset.com/en/kb332-ports-and-addresses-required-to-use-your-eset-product-with-a-third-party-firewall; sid:1200029; rev:1)
-
+#config http any any <> $ESET_ASPAM_MAIL_UPDT_SRVS 80 (msg:"No HTTP logs for ESET Mail Security Antispam module update servers"; config:logging disable, type tx, scope tx; reference:url, https://support.eset.com/en/kb332-ports-and-addresses-required-to-use-your-eset-product-with-a-third-party-firewall; sid:1200029; rev:1)
+#
 # No traffic logs for ESET Mail Security Antispam module update servers
-#config tcp any any -> $ESET_ASPAM_UPDT_SRVS 80 (msg:"No traffic logs for ESET Mail Security Antispam module update servers"; config:logging disable, type tx, scope tx; reference:url, https://support.eset.com/en/kb332-ports-and-addresses-required-to-use-your-eset-product-with-a-third-party-firewall; sid:1200030; rev:1)
+#config tcp any any <> $ESET_ASPAM_MAIL_UPDT_SRVS 80 (msg:"No traffic logs for ESET Mail Security Antispam module update servers"; config:logging disable, type tx, scope tx; reference:url, https://support.eset.com/en/kb332-ports-and-addresses-required-to-use-your-eset-product-with-a-third-party-firewall; sid:1200030; rev:1)
+
 
 # No DNS logs for links on ESET main program window
-#config dns any any -> any any (msg:"No DNS logs for links on ESET main program window"; dns.query; pcre:"/^((o|h[1,3]\-redir02\-v)\.eset\.com|(support\-)?go\.eset\.eu)$/gmi"; config:logging disable, type tx, scope tx; reference:url, https://support.eset.com/en/kb332-ports-and-addresses-required-to-use-your-eset-product-with-a-third-party-firewall; sid:1200031; rev:1;)
-
+# https://regex101.com/library/sWWT9k
+#config dns any any <> any any (msg:"No DNS logs for links on ESET main program window"; dns.query; pcre:"/^(?:go|h[1,3]\-redir02\-v)\.eset\.com|(?:support\-)?go\.eset\.eu$/gmi"; config:logging disable, type tx, scope tx; reference:url, https://support.eset.com/en/kb332-ports-and-addresses-required-to-use-your-eset-product-with-a-third-party-firewall; sid:1200031; rev:1;)
+#
 # No traffic logs for links on ESET main program window
-#config tcp any any -> $ESET_MAIN_WINDOW_SVRS any (msg:"No traffic logs for links on ESET main program window"; config:logging disable, type tx, scope tx; reference:url, https://support.eset.com/en/kb332-ports-and-addresses-required-to-use-your-eset-product-with-a-third-party-firewall; sid:1200032; rev:1)
+#config tcp any any <> $ESET_MAIN_WINDOW_SVRS any (msg:"No traffic logs for links on ESET main program window"; config:logging disable, type tx, scope tx; reference:url, https://support.eset.com/en/kb332-ports-and-addresses-required-to-use-your-eset-product-with-a-third-party-firewall; sid:1200032; rev:1)
+
 
 # No DNS logs for ESET Mobile Security Registration servers
-#config dns any any -> any any (msg:"No DNS logs for ESET Mobile Security Registration servers"; dns.query; pcre:"/^reg0[1,4]\.eset\.com$/gmi"; config:logging disable, type tx, scope tx; reference:url, https://support.eset.com/en/kb332-ports-and-addresses-required-to-use-your-eset-product-with-a-third-party-firewall; sid:1200033; rev:1;)
-
+# https://regex101.com/library/hgywLO
+#config dns any any <> any any (msg:"No DNS logs for ESET Mobile Security Registration servers"; dns.query; pcre:"/^reg0[1-4]\.eset\.com$/gmi"; config:logging disable, type tx, scope tx; reference:url, https://support.eset.com/en/kb332-ports-and-addresses-required-to-use-your-eset-product-with-a-third-party-firewall; sid:1200033; rev:1;)
+#
 # No HTTP logs for ESET Mobile Security Registration servers
-#config http any any -> any 80 (msg:"No HTTP logs for ESET Mobile Security Registration servers"; http.host; pcre:"/^reg0[1,4]\.eset\.com$/gmi"; http.uri; pcre:"/^mob_(activate|register)$/gmi"; config:logging disable, type tx, scope tx; reference:url, https://support.eset.com/en/kb332-ports-and-addresses-required-to-use-your-eset-product-with-a-third-party-firewall; sid:1200034; rev:1)
+# https://regex101.com/r/AYJ9wC
+#config http any any <> any 80 (msg:"No HTTP logs for ESET Mobile Security Registration servers"; http.host; pcre:"/^reg0[1,4]\.eset\.com$/gmi"; http.uri; pcre:"/^\/mob_(?:register|activate)\/?$/gmi"; config:logging disable, type tx, scope tx; reference:url, https://support.eset.com/en/kb332-ports-and-addresses-required-to-use-your-eset-product-with-a-third-party-firewall; sid:1200034; rev:1)
+
 
 # No DNS logs for ESET Data Framerwork servers
-#config dns any any -> any any (msg:"No DNS logs for ESET Data Framerwork servers"; dns.query; pcre:"/((edf|h([1,3]\-(edfspy02|arse0[1,2])|5\-arse0[1-4])\-v)\.eset\.com|ecp\.eset\.systems)/gmi"; config:logging disable, type tx, scope tx; reference:url, https://support.eset.com/en/kb332-ports-and-addresses-required-to-use-your-eset-product-with-a-third-party-firewall; sid:1200035; rev:1;)
-
+# https://regex101.com/library/WvM3PC (old)
+#config dns any any <> any any (msg:"No DNS logs for ESET Data Framerwork servers including old"; dns.query; pcre:"/^ecp\.eset\.systems|(?:edf|h(?:[1,3,5]\-arse0[1,2]|5\-arse0[3,4]|1\-edfspy02)\-v)\.eset\.com$/gmi"; config:logging disable, type tx, scope tx; reference:url, https://support.eset.com/en/kb332-ports-and-addresses-required-to-use-your-eset-product-with-a-third-party-firewall; sid:1200035; rev:1;)
+# https://regex101.com/library/RROf7i
+#config dns any any <> any any (msg:"No DNS logs for ESET Data Framerwork servers"; dns.query; pcre:"/^ecp\.eset\.systems|(?:edf|h(?:[1,3,5]\-arse0[1,2]|5\-arse0[3,4])\-v)\.eset\.com$/gmi"; config:logging disable, type tx, scope tx; reference:url, https://support.eset.com/en/kb332-ports-and-addresses-required-to-use-your-eset-product-with-a-third-party-firewall; sid:1200035; rev:1;)
+#
 # No traffic logs for ESET Data Framework servers
-#config tcp any any -> $ESET_DATA_FMWK_SVRS any (msg:"No traffic logs for ESET Data Framework servers"; config:logging disable, type tx, scope tx; reference:url, https://support.eset.com/en/kb332-ports-and-addresses-required-to-use-your-eset-product-with-a-third-party-firewall; sid:1200036; rev:1)
+#config tcp any any <> [$ESET_DATA_FMWK_SVRS, $ESET_DATA_FMWK_SVRS_OLD] any (msg:"No traffic logs for ESET Data Framework servers including old"; config:logging disable, type tx, scope tx; reference:url, https://support.eset.com/en/kb332-ports-and-addresses-required-to-use-your-eset-product-with-a-third-party-firewall; sid:1200036; rev:1)
+#config tcp any any <> $ESET_DATA_FMWK_SVRS any (msg:"No traffic logs for ESET Data Framework servers"; config:logging disable, type tx, scope tx; reference:url, https://support.eset.com/en/kb332-ports-and-addresses-required-to-use-your-eset-product-with-a-third-party-firewall; sid:1200036; rev:1)
+
 
 # No DNS logs for ESET Repository servers
-#config dns any any -> any any (msg:"No DNS logs for ESET Repository servers"; dns.query; pcre:"/(hp\-webs01\-s|(h1\-repo(01|sitory01)|h3\-repository02|h5\-repository03)\-v|(us\-)?repository|91\-228\-167\-25\.ptr|(nocdn|us)\-repository\.gtm|(reponocdn|repous)\.wip|repositorynocdn)\.eset\.com$/gmi"; config:logging disable, type tx, scope tx; reference:url, https://support.eset.com/en/kb332-ports-and-addresses-required-to-use-your-eset-product-with-a-third-party-firewall; sid:1200037; rev:1;)
-
+# https://regex101.com/r/YeGaTZ
+#config dns any any <> any any (msg:"No DNS logs for ESET Repository servers"; dns.query; pcre:"/((?:(us\-)?repository(?(1)|nocdn)?|h(?:(1)|(3)|(5)|(p))\-(?(6)webs01\-s|repo(?(3)(sitory)?01|(?(4)sitory02|(?(5)sitory03|)))\-v))|repo(?:nocdn|us)\.wip|(?:nocdn|us)\-repository\.gtm|91-228-167-25\.ptr)\.eset\.com/gmi"; config:logging disable, type tx, scope tx; reference:url, https://support.eset.com/en/kb332-ports-and-addresses-required-to-use-your-eset-product-with-a-third-party-firewall; sid:1200037; rev:1;)
+#
 # No traffic logs for ESET Repository servers
-#config tcp any any -> $ESET_REPO_SVRS any (msg:"No traffic logs for ESET Repository servers"; config:logging disable, type tx, scope tx; reference:url, https://support.eset.com/en/kb332-ports-and-addresses-required-to-use-your-eset-product-with-a-third-party-firewall; sid:1200038; rev:1)
+#config tcp any any <> $ESET_REPO_SVRS any (msg:"No traffic logs for ESET Repository servers"; config:logging disable, type tx, scope tx; reference:url, https://support.eset.com/en/kb332-ports-and-addresses-required-to-use-your-eset-product-with-a-third-party-firewall; sid:1200038; rev:1)
+#config tcp any any <> [$ESET_REPO_SVRS, $ESET_REPO_CHI_SVR] any (msg:"No traffic logs for ESET Repository servers"; config:logging disable, type tx, scope tx; reference:url, https://support.eset.com/en/kb332-ports-and-addresses-required-to-use-your-eset-product-with-a-third-party-firewall; sid:1200038; rev:1)
+
 
 # No DNS logs for ESET PROTECT Cloud servers
-#config dns any any -> any any (msg:"No DNS logs for ESET PROTECT Cloud servers"; dns.query; pcre:"/((eba|msp|edf|((eu|us|jp)\.)?mdm|epns|identity|((eu|us|jp)02\.)?protect|.*\.a\.ecaserver|(checkin|mdmcomm)\.(eu|us|jp))\.eset\.com|redirector\.eset\.systems)/gmi"; config:logging disable, type tx, scope tx; reference:url, https://help.eset.com/protect_cloud/en-US/prerequisites.html; sid:1200039; rev:1;)
-
+#config dns any any <> any any (msg:"No DNS logs for ESET PROTECT Cloud servers"; dns.query; pcre:"/((eba|msp|edf|((eu|us|jp)\.)?mdm|epns|identity|((eu|us|jp)02\.)?protect|.*\.a\.ecaserver|(checkin|mdmcomm)\.(eu|us|jp))\.eset\.com|redirector\.eset\.systems)/gmi"; config:logging disable, type tx, scope tx; reference:url, https://help.eset.com/protect_cloud/en-US/prerequisites.html; sid:1200039; rev:1;)
+#
 # No TLS logs for ESET PROTECT Cloud servers
-#config tls any any <> any 443 (msg:"No TLS logs for ESET PROTECT Cloud servers"; tls.sni; pcre:"/((eba|msp|edf|((eu|us|jp)\.)?mdm|identity|((eu|us|jp)02\.)?protect|.*\.a\.ecaserver|(checkin|mdmcomm)\.(eu|us|jp))\.eset\.com|redirector\.eset\.systems)/gmi"; config:logging disable, type tx, scope tx; reference:url, https://learn.microsoft.com/en-us/windows-server/administration/windows-server-update-services/deploy/2-configure-wsus; sid:1200040; rev:1;)
+#config tls any any <> any 443 (msg:"No TLS logs for ESET PROTECT Cloud servers"; tls.sni; pcre:"/((eba|msp|edf|((eu|us|jp)\.)?mdm|identity|((eu|us|jp)02\.)?protect|.*\.a\.ecaserver|(checkin|mdmcomm)\.(eu|us|jp))\.eset\.com|redirector\.eset\.systems)/gmi"; config:logging disable, type tx, scope tx; reference:url, https://help.eset.com/protect_cloud/en-US/prerequisites.html; sid:1200040; rev:1;)
 #config tls any any <> any [8883,443] (msg:"No TLS logs for ESET PROTECT Cloud servers"; tls.sni; content:"epns.eset.com"; config:logging disable, type tx, scope tx; reference:url, https://help.eset.com/protect_cloud/en-US/prerequisites.html; sid:1200041; rev:1;)
-
+#
 # No HTTP logs for ESET PROTECT Cloud servers
-#config http any any -> any 80 (msg:"No HTTP logs for ESET PROTECT Cloud servers"; http.host; content:"repository.eset.com"; config:logging disable, type tx, scope tx; reference:url, https://help.eset.com/protect_cloud/en-US/prerequisites.html; sid:1200042; rev:1)
-
+#config http any any <> any 80 (msg:"No HTTP logs for ESET PROTECT Cloud servers"; http.host; content:"repository.eset.com"; config:logging disable, type tx, scope tx; reference:url, https://help.eset.com/protect_cloud/en-US/prerequisites.html; sid:1200042; rev:1)
+#
 # No traffic logs for ESET PROTECT Cloud servers
 #config tcp any any <> [$SET_MGMT_AGNT_2CLD_SRVS, $ESET_CLD_WEB_CNSL_SRVS] any (msg:"No traffic logs for ESET PROTECT Cloud servers"; config:logging disable, type tx, scope tx; reference:url, https://help.eset.com/protect_cloud/en-US/prerequisites.html; sid:1200043; rev:1)
 
 # No DNS logs for ESET Inspect Cloud servers
-#config dns any any -> any any (msg:"No DNS logs for ESET PROTECT Cloud servers"; dns.query; pcre:"/^((eba|ema|msp|identity|((eu|us|jp)01)?\.?inspect)\.eset\.com|(eu|us|jp)01\.agent\.edr\.eset\.systems)$/gmi"; config:logging disable, type tx, scope tx; reference:url, https://help.eset.com/ei_cloud/en-US/prerequisites.html; sid:1200044; rev:1;)
-
+#config dns any any <> any any (msg:"No DNS logs for ESET PROTECT Cloud servers"; dns.query; pcre:"/^((eba|ema|msp|identity|((eu|us|jp)01)?\.?inspect)\.eset\.com|(eu|us|jp)01\.agent\.edr\.eset\.systems)$/gmi"; config:logging disable, type tx, scope tx; reference:url, https://help.eset.com/ei_cloud/en-US/prerequisites.html; sid:1200044; rev:1;)
+#
 # No TLS logs for ESET Inspect Cloud servers
 #config tls any any <> any any (msg:"No TLS logs for ESET PROTECT Cloud servers"; tls.sni; pcre:"/^(eba|ema|msp|identity|((eu|us|jp)01)?\.?inspect)\.eset\.com$/gmi"; config:logging disable, type tx, scope tx; reference:url, https://help.eset.com/ei_cloud/en-US/prerequisites.html; sid:1200045; rev:1;)
-
+#
 # No traffic logs for ESET Inspect Cloud servers
 #config tcp any any <> $ESET_NSPCT_CLD_SVRS 8093 (msg:"No traffic logs for ESET PROTECT Cloud servers"; config:logging disable, type tx, scope tx; reference:url, https://help.eset.com/ei_cloud/en-US/prerequisites.html; sid:1200046; rev:1)
 
 # No DNS logs for ESET Push Notification Service (EPNS) servers
-#config dns any any -> any any (msg:"No DNS logs for ESET Push Notification Service (EPNS) servers"; dns.query; pcre:"/^(h[1,3,5]\-)?epns(broker0[1-7])?\.eset\.com$/gmi"; config:logging disable, type tx, scope tx; reference:url, https://support.eset.com/en/kb332-ports-and-addresses-required-to-use-your-eset-product-with-a-third-party-firewall; sid:1200047; rev:1;)
-
+#config dns any any <> any any (msg:"No DNS logs for ESET Push Notification Service (EPNS) servers"; dns.query; pcre:"/^(h[1,3,5]\-)?epns(broker0[1-7])?\.eset\.com$/gmi"; config:logging disable, type tx, scope tx; reference:url, https://support.eset.com/en/kb332-ports-and-addresses-required-to-use-your-eset-product-with-a-third-party-firewall; sid:1200047; rev:1;)
+#
 # No TLS logs for ESET Push Notification Service (EPNS) servers
 #config tls any any <> any any (msg:"No TLS logs for ESET Push Notification Service (EPNS) servers"; tls.sni; content:"epns.eset.com"; config:logging disable, type tx, scope tx; reference:url, https://support.eset.com/en/kb332-ports-and-addresses-required-to-use-your-eset-product-with-a-third-party-firewall; sid:1200048; rev:1;)
-
+#
 # No traffic logs for ESET Push Notification Service (EPNS) servers
 #config tcp any any <> $ESET_EPNS_SRVS [8883, 443] (msg:"No traffic logs for ESET Push Notification Service (EPNS) servers"; config:logging disable, type tx, scope tx; reference:url, https://support.eset.com/en/kb332-ports-and-addresses-required-to-use-your-eset-product-with-a-third-party-firewall; sid:1200049; rev:1)
 
 # No DNS logs for ESET LiveGuard Advanced servers
-#config dns any any -> any any (msg:"No DNS logs for ESET LiveGuard Advanced servers"; dns.query; pcre:"/(r|d).edtd.eset.com/gmi"; config:logging disable, type tx, scope tx; reference:url, https://support.eset.com/en/kb332-ports-and-addresses-required-to-use-your-eset-product-with-a-third-party-firewall; sid:1200050; rev:1;)
-
+#config dns any any <> any any (msg:"No DNS logs for ESET LiveGuard Advanced servers"; dns.query; pcre:"/(r|d).edtd.eset.com/gmi"; config:logging disable, type tx, scope tx; reference:url, https://support.eset.com/en/kb332-ports-and-addresses-required-to-use-your-eset-product-with-a-third-party-firewall; sid:1200050; rev:1;)
+#
 # No traffic logs for ESET LiveGuard Advanced servers
 #config tcp any any <> $ESET_LVE_GRD_SRVS any (msg:"No traffic logs for ESET LiveGuard Advanced servers"; config:logging disable, type tx, scope tx; reference:url, https://support.eset.com/en/kb332-ports-and-addresses-required-to-use-your-eset-product-with-a-third-party-firewall; sid:1200051; rev:1)
 
 # No DNS logs for ESET Services servers (activation, expiration, IP location, trace, version check, redirector, in-product images & messages, SSL certificate check)
-#config dns any any -> any any (msg:"No DNS logs for ESET Services servers "; dns.query; pcre:"/(proxy|register|iploc|pki|versioncheck|edf|trace|ipm|banner|proxy\-detection|h[1,3]\-weblb01\-v)\.eset\.com$/gmi"; config:logging disable, type tx, scope tx; reference:url, https://support.eset.com/en/kb332-ports-and-addresses-required-to-use-your-eset-product-with-a-third-party-firewall; sid:1200052; rev:1;)
-
+#config dns any any <> any any (msg:"No DNS logs for ESET Services servers "; dns.query; pcre:"/(proxy|register|iploc|pki|versioncheck|edf|trace|ipm|banner|proxy\-detection|h[1,3]\-weblb01\-v)\.eset\.com$/gmi"; config:logging disable, type tx, scope tx; reference:url, https://support.eset.com/en/kb332-ports-and-addresses-required-to-use-your-eset-product-with-a-third-party-firewall; sid:1200052; rev:1;)
+#
 # No traffic logs for ESET Services servers (activation, expiration, IP location, trace, version check, redirector, in-product images & messages, SSL certificate check)
 #config tcp any any <> $ESET_SRVCS_SRVS any (msg:"No traffic logs for ESET Services servers"; config:logging disable, type tx, scope tx; reference:url, https://support.eset.com/en/kb332-ports-and-addresses-required-to-use-your-eset-product-with-a-third-party-firewall; sid:1200053; rev:1)
 
 # No DNS logs for ESET Online Help Knowledgebase servers
-#config dns any any -> any any (msg:"No DNS logs for ESET Services servers "; dns.query; pcre:"/^(help|support|int\.form)\.eset\.com$/gmi"; config:logging disable, type tx, scope tx; reference:url, https://support.eset.com/en/kb332-ports-and-addresses-required-to-use-your-eset-product-with-a-third-party-firewall; sid:1200054; rev:1;)
-
+#config dns any any <> any any (msg:"No DNS logs for ESET Services servers "; dns.query; pcre:"/^(help|support|int\.form)\.eset\.com$/gmi"; config:logging disable, type tx, scope tx; reference:url, https://support.eset.com/en/kb332-ports-and-addresses-required-to-use-your-eset-product-with-a-third-party-firewall; sid:1200054; rev:1;)
+#
 # No traffic logs for ESET Online Help Knowledgebase servers
 #config tcp any any <> $ESET_OHLP_KB_SVRS any (msg:"No traffic logs for ESET Online Help Knowledgebase servers"; config:logging disable, type tx, scope tx; reference:url, https://support.eset.com/en/kb332-ports-and-addresses-required-to-use-your-eset-product-with-a-third-party-firewall; sid:1200055; rev:1)
 
 # No DNS logs logs for ESET MSP Utility (EMU)
-#config dns any any -> any any (msg:"No DNS logs logs for ESET MSP Utility (EMU)"; dns.query; pcre:"/^ftp\.eset\.sk|mspapi\.esetsoftware\.com$/gmi"; config:logging disable, type tx, scope tx; reference:url, https://support.eset.com/en/kb332-ports-and-addresses-required-to-use-your-eset-product-with-a-third-party-firewall; sid:1200056; rev:1;)
-
+#config dns any any <> any any (msg:"No DNS logs logs for ESET MSP Utility (EMU)"; dns.query; pcre:"/^ftp\.eset\.sk|mspapi\.esetsoftware\.com$/gmi"; config:logging disable, type tx, scope tx; reference:url, https://support.eset.com/en/kb332-ports-and-addresses-required-to-use-your-eset-product-with-a-third-party-firewall; sid:1200056; rev:1;)
+#
 # No traffic logs for ESET MSP Utility (EMU)
 #config tcp any any <> $ESET_MSP_UTE_SVRS any (msg:"No traffic logs for ESET MSP Utility (EMU)"; config:logging disable, type tx, scope tx; reference:url, https://support.eset.com/en/kb332-ports-and-addresses-required-to-use-your-eset-product-with-a-third-party-firewall; sid:1200057; rev:1)
 
 # No DNS logs for ESET DNS Load Balancer servers
-#config dns any any -> any any (msg:"No DNS logs for ESET DNS Load Balancer servers"; dns.query; pcre:"/h[1,3,5]\-f5(lb|gtm)01\-s\.eset\.com/gmi"; config:logging disable, type tx, scope tx; reference:url, https://support.eset.com/en/kb332-ports-and-addresses-required-to-use-your-eset-product-with-a-third-party-firewall; sid:1200058; rev:1;)
-#config dns any any -> $ESET_DNS_LD_BLNCR_SVRS any (msg:"No DNS logs for ESET DNS Load Balancer servers"; config:logging disable, type tx, scope tx; reference:url, https://support.eset.com/en/kb332-ports-and-addresses-required-to-use-your-eset-product-with-a-third-party-firewall; sid:1200059; rev:1;)
+#config dns any any <> any any (msg:"No DNS logs for ESET DNS Load Balancer servers"; dns.query; pcre:"/h[1,3,5]\-f5(lb|gtm)01\-s\.eset\.com/gmi"; config:logging disable, type tx, scope tx; reference:url, https://support.eset.com/en/kb332-ports-and-addresses-required-to-use-your-eset-product-with-a-third-party-firewall; sid:1200058; rev:1;)
+#config dns any any <> $ESET_DNS_LD_BLNCR_SVRS any (msg:"No DNS logs for ESET DNS Load Balancer servers"; config:logging disable, type tx, scope tx; reference:url, https://support.eset.com/en/kb332-ports-and-addresses-required-to-use-your-eset-product-with-a-third-party-firewall; sid:1200059; rev:1;)
 
 # No DNS logs for ESET telemetry servers
-#config dns any any -> any any (msg:"No DNS logs for ESET telemetry servers"; dns.query; content:"gallup.eset.com"; config:logging disable, type tx, scope tx; reference:url, https://support.eset.com/en/kb332-ports-and-addresses-required-to-use-your-eset-product-with-a-third-party-firewall; sid:1200060; rev:1;)
-
+#config dns any any <> any any (msg:"No DNS logs for ESET telemetry servers"; dns.query; content:"gallup.eset.com"; config:logging disable, type tx, scope tx; reference:url, https://support.eset.com/en/kb332-ports-and-addresses-required-to-use-your-eset-product-with-a-third-party-firewall; sid:1200060; rev:1;)
+#
 # No TLS logs for ESET telemetry servers
 #config tls any any <> any 443 (msg:"No TLS logs for ESET telemetry servers"; tls.sni; content:"gallup.eset.com"; config:logging disable, type tx, scope tx; reference:url, https://support.eset.com/en/kb332-ports-and-addresses-required-to-use-your-eset-product-with-a-third-party-firewall; sid:1200061; rev:1;)
 
 # No HTTP logs for ESET OSCP servers
-#config http any any -> any 80 (msg:"No HTTP logs for ESET OSCP servers"; config:logging disable, type tx, scope tx; reference:url, https://support.eset.com/en/kb332-ports-and-addresses-required-to-use-your-eset-product-with-a-third-party-firewall; sid:1200062; rev:1)
-
+#config http any any <> any 80 (msg:"No HTTP logs for ESET OSCP servers"; config:logging disable, type tx, scope tx; reference:url, https://support.eset.com/en/kb332-ports-and-addresses-required-to-use-your-eset-product-with-a-third-party-firewall; sid:1200062; rev:1)
+#
 # No traffic logs for ESET OSCP servers
 #config tcp any any <> $ESET_OSCP_SVRS 80 (msg:"No traffic logs for ESET OSCP servers"; config:logging disable, type tx, scope tx; reference:url, https://support.eset.com/en/kb332-ports-and-addresses-required-to-use-your-eset-product-with-a-third-party-firewall; sid:1200063; rev:1)
 
@@ -245,24 +287,6 @@
 # SMTP=25,2525,587,465; POP3=110,995; IMAP=143,993
 #config tcp 50.31.61.240 any <> any 80 (msg:"No traffic logs for ESET OSCP servers"; config:logging disable, type tx, scope tx; reference:url, https://support.eset.com/en/kb332-ports-and-addresses-required-to-use-your-eset-product-with-a-third-party-firewall; sid:1200065; rev:1)
 
-##############################
-#                            #
-#    KASPERSKY DETECTIONS    #
-#                            #
-##############################
-
-# No DNS logs for Kaspersky AV update domains
-# https://regex101.com/library/YTyUG3
-#config dns any any -> any any (msg:"No DNS logs for ESET telemetry servers"; dns.query; pcre:"/^((ds|crl|ocsp|dnl\-[0,1][0-9]\.geo|(s[0,1][0-9]|p[0,1][0-9]|downloads)\.upd)\.kaspersky|downloads[0-9]?\.kaspersky\-labs)\.com$/gmi"; config:logging disable, type tx, scope tx; reference:url, https://support.kaspersky.com/common/start/6105; sid:1200066; rev:1;)
-
-# No TLS logs for Kaspersky update servers
-# https://regex101.com/library/xgmMtQ
-#config tls any any <> any 443 (msg:"No TLS logs for Kaspersky update servers"; tls.sni; pcre:"/^(downloads|s[0,1][0-9])\.upd\.kaspersky\.com$/gmi";  config:logging disable, type tx, scope tx; reference:url, https://support.kaspersky.com/common/start/6105; sid:1200067; rev:1;)
-
-# No HTTP logs for Kaspersky update servers
-# https://regex101.com/library/CSiRYM
-#config http any any <> any 80 (msg:"No HTTP logs for Kaspersky update servers"; http.host; pcre:"/^((crl|ocsp|ds|dnl\-[0,1][0-9]\.geo|p[0,1][0-9]\.upd)\.kaspersky|(downloads[0-9]?)\.kaspersky\-labs)\.com$/gmi"; config:logging disable, type tx, scope tx; reference:url, https://support.kaspersky.com/common/start/6105; sid:1200068; rev:1)
-
 #########################################
 #                                       #
 #    BENIGN WINDOWS NETWORK BEHAVIOR    #
@@ -271,12 +295,30 @@
 
 # No DNS logs for standard Windows Update traffic
 # https://regex101.com/library/r6dvEO
-#config dns any any -> any [80,443] (msg:"No DNS logs for standard Windows Update traffic"; dns.query; pcre:"/^(((.*\.)?windowsupdate|(.*\.)?update|download|ntservicepack|go|(.|dl)+\.delivery\.mp)\.microsoft|(.|download\.)+windowsupdate|wustat\.windows)\.com$/gmi"; config:logging disable, type tx, scope tx; reference:url, https://learn.microsoft.com/en-us/windows-server/administration/windows-server-update-services/deploy/2-configure-wsus; sid:1200101; rev:1;)
-
+#config dns any any <> any [80,443] (msg:"No DNS logs for standard Windows Update traffic"; dns.query; pcre:"/^(?:(?:(?:.*\.)?windowsupdate|(?:.*\.)?update|download|ntservicepack|go|(?:.|dl)+\.delivery\.mp)\.microsoft|(?:.|download\.)+windowsupdate|wustat\.windows)\.com$/gmi"; config:logging disable, type tx, scope tx; reference:url, https://learn.microsoft.com/en-us/windows-server/administration/windows-server-update-services/deploy/2-configure-wsus; sid:1200101; rev:1;)
+#
 # No HTTP logs for standard Windows Update traffic
 # https://regex101.com/library/r6dvEO
-#config http any any -> any any (msg:"No HTTP logs for standard Windows Update traffic"; http.host; pcre:"/^(((.*\.)?windowsupdate|(.*\.)?update|download|ntservicepack|go|(.|dl)+\.delivery\.mp)\.microsoft|(.|download\.)+windowsupdate|wustat\.windows)\.com$/gmi"; config:logging disable, type tx, scope tx; reference:url, https://learn.microsoft.com/en-us/windows-server/administration/windows-server-update-services/deploy/2-configure-wsus; sid:1200102;)
-
+#config http any any <> any any (msg:"No HTTP logs for standard Windows Update traffic"; http.host; pcre:"/^(?:(?:(?:.*\.)?windowsupdate|(?:.*\.)?update|download|ntservicepack|go|(?:.|dl)+\.delivery\.mp)\.microsoft|(?:.|download\.)+windowsupdate|wustat\.windows)\.com$/gmi"; config:logging disable, type tx, scope tx; reference:url, https://learn.microsoft.com/en-us/windows-server/administration/windows-server-update-services/deploy/2-configure-wsus; sid:1200102; rev:1;)
+#
 # No TLS logs for standard Windows Update traffic
 # https://regex101.com/library/r6dvEO
-#config tls any any -> any any (msg:"No TLS logs for standard Windows Update traffic"; tls.sni; pcre:"/^(((.*\.)?windowsupdate|(.*\.)?update|download|ntservicepack|go|(.|dl)+\.delivery\.mp)\.microsoft|(.|download\.)+windowsupdate|wustat\.windows)\.com$/gmi"; config:logging disable, type tx, scope tx; reference:url, https://learn.microsoft.com/en-us/windows-server/administration/windows-server-update-services/deploy/2-configure-wsus; sid:1200103; rev:1;)
+#config tls any any <> any any (msg:"No TLS logs for standard Windows Update traffic"; tls.sni; pcre:"/^(?:(?:(?:.*\.)?windowsupdate|(?:.*\.)?update|download|ntservicepack|go|(?:.|dl)+\.delivery\.mp)\.microsoft|(?:.|download\.)+windowsupdate|wustat\.windows)\.com$/gmi"; config:logging disable, type tx, scope tx; reference:url, https://learn.microsoft.com/en-us/windows-server/administration/windows-server-update-services/deploy/2-configure-wsus; sid:1200103; rev:1;)
+
+##############################
+#                            #
+#    KASPERSKY DETECTIONS    #
+#                            #
+##############################
+
+# No DNS logs for Kaspersky AV update domains
+# https://regex101.com/library/YTyUG3
+#config dns any any <> any any (msg:"No DNS logs for ESET telemetry servers"; dns.query; pcre:"/^(?:(?:ds|crl|ocsp|dnl\-[0,1][0-9]\.geo|(?:s[0,1][0-9]|p[0,1][0-9]|downloads)\.upd)\.kaspersky|downloads[0-9]?\.kaspersky\-labs)\.com$/gmi"; config:logging disable, type tx, scope tx; reference:url, https://support.kaspersky.com/common/start/6105; sid:1200201; rev:1;)
+#
+# No TLS logs for Kaspersky update servers
+# https://regex101.com/library/xgmMtQ
+#config tls any any <> any 443 (msg:"No TLS logs for Kaspersky update servers"; tls.sni; pcre:"/^(?:downloads|s[0,1][0-9])\.upd\.kaspersky\.com$/gmi";  config:logging disable, type tx, scope tx; reference:url, https://support.kaspersky.com/common/start/6105; sid:1200202; rev:1;)
+#
+# No HTTP logs for Kaspersky update servers
+# https://regex101.com/library/CSiRYM
+#config http any any <> any 80 (msg:"No HTTP logs for Kaspersky update servers"; http.host; pcre:"/^(?:(?:crl|ocsp|ds|dnl\-[0,1][0-9]\.geo|p[0,1][0-9]\.upd)\.kaspersky|(?:downloads[0-9]?)\.kaspersky\-labs)\.com$/gmi"; config:logging disable, type tx, scope tx; reference:url, https://support.kaspersky.com/common/start/6105; sid:1200203; rev:1)
