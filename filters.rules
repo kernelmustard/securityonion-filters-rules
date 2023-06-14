@@ -340,12 +340,58 @@
 
 # No DNS logs for Kaspersky AV update domains
 # https://regex101.com/r/YTyUG3
-#config dns any any <> any any (msg:"No DNS logs for ESET telemetry servers"; dns.query; pcre:"/^(?:(?:ds|crl|ocsp|dnl\-[0,1][0-9]\.geo|(?:s[0,1][0-9]|p[0,1][0-9]|downloads)\.upd)\.kaspersky|downloads[0-9]?\.kaspersky\-labs)\.com$/gmi"; config:logging disable, type tx, scope tx; reference:url, https://support.kaspersky.com/common/start/6105; sid:1200201; rev:1;)
+#config dns any any <> any any (msg:"No DNS logs for Kaspersky AV update domains"; dns.query; pcre:"/^(?:(?:ds|crl|ocsp|dnl\-[0,1][0-9]\.geo|(?:[sp][0,1][0-9]|downloads)\.upd)\.kaspersky|downloads[0-9]?\.kaspersky\-labs)\.com$/gmi"; config:logging disable, type tx, scope tx; reference:url, https://support.kaspersky.com/common/start/6105; sid:1200201; rev:1;)
 #
 # No TLS logs for Kaspersky update servers
 # https://regex101.com/r/xgmMtQ
-#config tls any any <> any 443 (msg:"No TLS logs for Kaspersky update servers"; tls.sni; pcre:"/^(?:downloads|s[0,1][0-9])\.upd\.kaspersky\.com$/gmi";  config:logging disable, type tx, scope tx; reference:url, https://support.kaspersky.com/common/start/6105; sid:1200202; rev:1;)
+#config tls any any <> any 443 (msg:"No TLS logs for Kaspersky update servers"; tls.sni; pcre:"/^(?:downloads|s[0,1][0-9])\.upd\.kaspersky\.com$/gmi"; config:logging disable, type tx, scope tx; reference:url, https://support.kaspersky.com/common/start/6105; sid:1200202; rev:1;)
 #
 # No HTTP logs for Kaspersky update servers
 # https://regex101.com/r/CSiRYM
 #config http any any <> any 80 (msg:"No HTTP logs for Kaspersky update servers"; http.host; pcre:"/^(?:(?:crl|ocsp|ds|dnl\-[0,1][0-9]\.geo|p[0,1][0-9]\.upd)\.kaspersky|(?:downloads[0-9]?)\.kaspersky\-labs)\.com$/gmi"; config:logging disable, type tx, scope tx; reference:url, https://support.kaspersky.com/common/start/6105; sid:1200203; rev:1)
+
+# The following rules apply to: 
+#    Kaspersky Security Center (KSC) versions 14, 13.2, 13.1, 13, 12
+#    Kaspersky Endpoint Security (KES) for Windows 11.6.0, 11.5.0, 11.4.0, 11.3.0, 11.2.0, 11.1.1, 11.1.0
+# If anything applies specifically to a product, its abbreviation will be used. Otherwise, it is called "Kaspersky product"
+# 
+# No DNS logs for Kaspersky product activation
+#config dns any any <> any any (msg:"No DNS logs for Kaspersky product activation"; dns.query; content:"activation-v2.kaspersky.com"; config:logging disable, type tx, scope tx; reference:url, https://support.kaspersky.com/ksc14/settings/server/15052; sid:1200204; rev:1;)
+#
+# No TLS logs for Kaspersky product activation
+#config tls any any <> any 443 (msg:"No TLS logs for Kaspersky product activation"; tls.sni; content:"activation-v2.kaspersky.com"; config:logging disable, type tx, scope tx; reference:url, https://support.kaspersky.com/ksc14/settings/server/15052; sid:1200205; rev:1;)
+#
+# No DNS logs for Kaspersky product updates
+# https://regex101.com/r/inqbGu
+#config dns any any <> any any (msg:"No DNS logs for Kaspersky product updates"; dns.query; pcre:"/^((?:[sp][0,1][0-9]|downloads)\.upd)(?(1)\.kaspersky\.com)|(?:cm\.k|downloads)\.kaspersky-labs\.com$/gmi"; config:logging disable, type tx, scope tx; reference:url, https://support.kaspersky.com/ksc14/settings/server/15052; sid:1200206; rev:1;)
+#
+# No TLS logs for Kaspersky product updates
+# https://regex101.com/r/6ZRolj
+#config tls any any <> any 443 (msg:"No TLS logs for Kaspersky product activation"; tls.sni; pcre:"/^(?:(?:s[0,1][0-9]|downloads)\.upd|(cm\.k))\.kaspersky(?(1)-labs)\.com$/gmi"; config:logging disable, type tx, scope tx; reference:url, https://support.kaspersky.com/ksc14/settings/server/15052; sid:1200207; rev:1;)
+# 
+# No HTTP logs for Kaspersky product updates
+# https://regex101.com/r/IjDoub
+#config http any any <> any 80 (msg:"No HTTP logs for Kaspersky product updates"; http.host; pcre:"/^(?:p[0,1][0-9]\.upd|(downloads|cm\.k))\.kaspersky(?(1)-labs)\.com$/gmi"; config:logging disable, type tx, scope tx; reference:url, https://support.kaspersky.com/ksc14/settings/server/15052; sid:1200208; rev:1)
+# 
+# No DNS logs for Kaspersky product KSN services
+# https://regex101.com/r/opzWRn
+#config dns any any <> any any (msg:"No DNS logs for Kaspersky product KSN services"; dns.query; pcre:"/^(?:(ds)|ksn-(?:a-(?:stat|p2p)|(?:file|verdict|url|c?info))-geo)\.kaspersky(?(1)|-labs)\.com$/gmi"; config:logging disable, type tx, scope tx; reference:url, https://support.kaspersky.com/ksc14/settings/server/15052; sid:1200209; rev:1;)
+#
+# No TLS logs for Kaspersky product KSN services
+# https://regex101.com/r/wc2x9Y
+#config tls any any <> any 443 (msg:"No TLS logs for Kaspersky product KSN services"; tls.sni; content:"ds.kaspersky.com"; config:logging disable, type tx, scope tx; reference:url, https://support.kaspersky.com/ksc14/settings/server/15052; sid:1200210; rev:1;)
+#config tls any any <> any [1443,443] (msg:"No TLS logs for Kaspersky product activation"; tls.sni; pcre:"/^ksn-(?:a-(?:stat|p2p)|file|verdict|url|c?info)-geo\.kaspersky-labs\.com$/gmi"; config:logging disable, type tx, scope tx; reference:url, https://support.kaspersky.com/ksc14/settings/server/15052; sid:1200211; rev:1;)
+#
+# No DNS logs for Kaspersky product inteface links
+#config dns any any <> any any (msg:"No DNS logs for Kaspersky product inteface links"; dns.query; pcre:"/^(click|redirect)\.kaspersky\.com$/gmi"; config:logging disable, type tx, scope tx; reference:url, https://support.kaspersky.com/ksc14/settings/server/15052; sid:1200212; rev:1;)
+#
+# No TLS logs for Kaspersky product interface links
+#config tls any any <> any 443 (msg:"No TLS logs for Kaspersky product interface links"; tls.sni; pcre:"/^(click|redirect)\.kaspersky\.com$/gmi"; config:logging disable, type tx, scope tx; reference:url, https://support.kaspersky.com/ksc14/settings/server/15052; sid:1200213; rev:1;)
+#
+# No DNS logs for Kaspersky product PKI services
+#config dns any any <> any any (msg:"No DNS logs for Kaspersky product PKI services"; dns.query; pcre:"/^(crl|oscp)\.kaspersky\.com$/gmi"; config:logging disable, type tx, scope tx; reference:url, https://support.kaspersky.com/Kaspersky14/settings/server/15052; sid:1200214; rev:1;)
+#
+# No HTTP logs for Kaspersky product PKI services
+#config http any any <> any 80 (msg:"No HTTP logs for Kaspersky product PKI services"; http.host; pcre:"/^(crl|oscp)\.kaspersky\.com$/gmi"; config:logging disable, type tx, scope tx; reference:url, https://support.kaspersky.com/ksc14/settings/server/15052; sid:1200215; rev:1)
+
+
