@@ -5,7 +5,7 @@ Custom filters.rules file used by the so-suricata metadata engine
 - All of the rules use case-insensitive pcre (/i), but perhaps some rules could be case sensitive because official applications should be using the exact domain/uri
 - Rules that are mutually exclusive (ex. one for a different version of a product) have the same sid. If that is not best practice that can be changed
 # ESET Detections
-- sid: 1200001 - 065
+- sid: 1200001 - 066
 # Benign WIndows Network Behavior
 - sid: 12000101 - 103
 # Kaspersky Detections
